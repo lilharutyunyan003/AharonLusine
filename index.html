@@ -26,7 +26,7 @@
         
         /* ✅ BODY BACKGROUND IS TRANSPARENT */
         body {
-            background-color: transparent; 
+            background-color: transparent !important; 
             color: var(--text-chocolate);
             font-family: var(--font-serif);
             display: flex;
@@ -46,8 +46,7 @@
             width: 100%;
             height: 100%;
             z-index: 9999;
-            background: transparent;
-            /* Prevent scrolling on intro */
+            background: transparent !important;
             touch-action: none; 
         }
 
@@ -55,33 +54,18 @@
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
-            transition: opacity 1s ease;
         }
 
-        /* ✅ IMAGE TAG - EXACT SAME PROPERTIES AS VIDEO FOR MOBILE */
-        .cover-image {
-            position: fixed; /* Fixed ensures it stays same size on mobile scroll/address bar changes */
-            top: 0;
-            left: 0;
-            width: 100%;  
-            height: 100%; 
-            object-fit: cover; 
-            z-index: 2;
-            will-change: opacity;
-            transition: opacity 0.00001s linear; 
-        }
-
-        /* ✅ VIDEO CONTAINER - EXACT SAME PROPERTIES */
+        /* ✅ VIDEO CONTAINER - PLACED BEHIND IMAGE (Z-INDEX 1) */
         .video-container-full {
-            position: fixed; /* Fixed ensures it stays same size on mobile */
+            position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            z-index: 1;
-            opacity: 0;
-            will-change: opacity;
-            transition: opacity 0.00001s linear; 
+            z-index: 1; /* Behind image */
+            opacity: 1; /* Always visible, but covered by image */
+            background: transparent !important;
         }
 
         .video-container-full video {
@@ -89,17 +73,27 @@
             height: 100%;
             object-fit: cover; 
             display: block;
+            background: transparent;
         }
 
-        /* ✅ ACTIVE STATE FOR TRANSITION */
+        /* ✅ IMAGE TAG - PLACED ON TOP (Z-INDEX 2) */
+        .cover-image {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;  
+            height: 100%; 
+            object-fit: cover; 
+            z-index: 2; /* On top of video */
+            transition: none; /* Instant change */
+        }
+
+        /* ✅ WHEN PLAYING, HIDE IMAGE INSTANTLY */
         .intro-overlay.playing-video .cover-image {
             opacity: 0;
+            visibility: hidden;
             pointer-events: none;
-        }
-
-        .intro-overlay.playing-video .video-container-full {
-            opacity: 1;
-            z-index: 3;
+            display: none; /* Completely remove from flow to prevent any flash */
         }
 
         /* ============================================
@@ -1086,15 +1080,15 @@
          INTRO OVERLAY (IMAGE -> VIDEO)
          ============================================ -->
     <div class="intro-overlay" id="introOverlay">
-        <!-- ✅ IMAGE AS IMG TAG (Matches Video Size Exactly) -->
-        <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-15_16-17-27.jpg?v=1794745178" class="cover-image" alt="Cover">
-        
-        <!-- ✅ VIDEO TAG -->
+        <!-- ✅ VIDEO TAG (LOADED FIRST, BEHIND IMAGE) -->
         <div class="video-container-full" id="videoContainer">
             <video id="introVideo" playsinline muted preload="auto">
                 <source src="https://cdn.shopify.com/videos/c/o/v/8ce6a7a2e9254dbabe3e8ab40c6b702c.mp4" type="video/mp4">
             </video>
         </div>
+
+        <!-- ✅ IMAGE TAG (ON TOP) -->
+        <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-15_16-17-27.jpg?v=1794745178" class="cover-image" alt="Cover">
     </div>
 
     <!-- ============================================
@@ -1365,6 +1359,11 @@
         let isVideoPlaying = false;
         const SKIP_LAST_SECONDS = 4;
 
+        // ✅ PRELOAD VIDEO IMMEDIATELY SO IT'S READY WHEN CLICKED
+        window.addEventListener('load', function() {
+            introVideo.load();
+        });
+
         function openInvitation() {
             if (isOpened) return;
             isOpened = true;
@@ -1399,7 +1398,7 @@
                 // First click: Instantly switch Image to Video
                 isVideoPlaying = true;
                 
-                // Add class to trigger CSS transitions
+                // Add class to hide image instantly
                 introOverlay.classList.add('playing-video');
                 
                 introVideo.muted = false;
