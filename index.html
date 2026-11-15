@@ -1,1 +1,1558 @@
+<!DOCTYPE html>
+<html lang="hy">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Aharon & Lusine | Wedding Invitation</title>
+    
+    <!-- Elegant Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Pinyon+Script&display=swap" rel="stylesheet">
 
+    <style>
+        :root {
+            --bg-paper: #F9F6F0;
+            --text-chocolate: #3E2723;
+            --text-taupe: #5D4037;
+            --accent-gold: #C5A065;
+            --line-color: #6D4C41;
+            
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-script: 'Pinyon Script', cursive;
+        }
+
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        
+        /* ✅ BODY HAS SOLID COLOR FOR VIDEO PAGE */
+        body {
+            background-color: #000; 
+            color: var(--text-chocolate);
+            font-family: var(--font-serif);
+            display: flex;
+            justify-content: center;
+            min-height: 100vh;
+            overflow-x: hidden;
+            overflow-y: hidden; /* Locked until invitation opens */
+        }
+
+        /* ============================================
+           VIDEO INTRO OVERLAY (BLACK BG)
+           ============================================ */
+        .video-intro-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: #000; 
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: opacity 1.5s ease, visibility 1.5s ease;
+        }
+
+        .video-intro-overlay.hidden {
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+        }
+
+        .video-container-full {
+            width: 100%;
+            height: 100%;
+            position: relative;
+            cursor: pointer;
+            background: transparent; 
+        }
+
+        .video-container-full video {
+            width: 100vw;
+            height: 100vh;
+            object-fit: cover;
+            position: absolute;
+            top: 0;
+            left: 0;
+        }
+
+        .tap-hint {
+            position: absolute;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            animation: pulse 3s infinite;
+            cursor: pointer;
+            z-index: 10;
+            opacity: 0;
+            transition: opacity 1s ease;
+        }
+
+        .tap-hint.visible {
+            opacity: 1;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.2; }
+            50% { opacity: 0.8; }
+        }
+
+        /* ============================================
+           MAIN INVITATION CONTENT CARD
+           ============================================ */
+        .hero-section {
+            max-width: 100%;
+            width: 100%;
+            text-align: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 0 0 60px;
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 2s ease, transform 2s cubic-bezier(0.22, 1, 0.36, 1);
+            min-height: 100vh;
+            /* Default bg for top part (Pearl Silk is in block) */
+            background: var(--bg-paper);
+        }
+
+        .hero-section.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- FIRST PAGE BLOCK (NAMES + DATE) - PEARL SILK BG --- */
+        .first-page-block {
+            width: 100%;
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Pearl_Silk_Wallpaper___Minimalist_Aesthetic.jpg?v=1794724840');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-start;
+            padding: 60px 20px 40px;
+            position: relative;
+            z-index: 2;
+        }
+
+        /* --- NAMES WITH DROP-DOWN ANIMATION --- */
+        .names {
+            font-family: var(--font-script);
+            font-size: 2.4rem; 
+            color: var(--text-chocolate);
+            line-height: 1;
+            margin-bottom: 0.3rem;
+            font-weight: 400;
+            white-space: nowrap;
+            opacity: 0;
+            transform: translateY(-50px);
+            transition: opacity 2s ease, transform 2s cubic-bezier(0.34, 1.56, 0.64, 1);
+            margin-top: 5vh; 
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .names.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* --- DECORATIVE DIVIDER --- */
+        .divider-container {
+            width: 90%;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            margin: 0 auto 0.1rem;
+        }
+
+        .divider-line {
+            position: absolute;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: linear-gradient(90deg, transparent, var(--accent-gold), transparent);
+        }
+
+        .divider-icon {
+            background: var(--bg-paper);
+            padding: 0 12px;
+            color: var(--accent-gold);
+            font-size: 0.7rem;
+            z-index: 1;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        /* --- SUBTITLE --- */
+        .subtitle {
+            font-family: var(--font-serif);
+            text-transform: uppercase;
+            letter-spacing: 2.5px;
+            font-size: 0.7rem; 
+            color: #6D4C41;
+            margin-top: 0;
+            margin-bottom: 1.2rem;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- DATE SECTION --- */
+        .date-section {
+            margin-top: 1rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 100%;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease 0.5s, transform 2s cubic-bezier(0.22, 1, 0.36, 1) 0.5s;
+        }
+
+        .date-section.animate-in {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .wedding-day-title {
+            font-family: var(--font-serif);
+            text-transform: uppercase;
+            letter-spacing: 4px;
+            font-size: 0.85rem;
+            color: #6D4C41;
+            margin-bottom: 0.8rem;
+            font-weight: 600;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .date-frame {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 25px;
+            padding: 5px 0;
+        }
+
+        .vertical-line {
+            width: 1px;
+            height: 55px;
+            background-color: var(--text-chocolate);
+            opacity: 0.6;
+        }
+
+        .date-content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 4px;
+        }
+
+        .date-label {
+            font-size: 0.9rem;
+            font-style: italic;
+            color: #6D4C41;
+            margin-bottom: -2px;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .date-value {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-chocolate);
+            line-height: 1;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- REST OF THE CONTENT (ON SOFT SILK BG) --- */
+        
+        /* Container for content on Soft Silk BG */
+        .content-container {
+            width: 100%;
+            max-width: 500px;
+            padding: 0 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* ✅ SOFT SILK BACKGROUND STARTS HERE AND COVERS FULL SCREEN */
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Soft_as_silk_1.jpg?v=1794726578');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-attachment: fixed;
+            /* Smooth transition from Pearl Silk */
+            margin-top: -1px; 
+        }
+
+        /* --- WAVE HEART DECORATION --- */
+        .wave-heart-decoration {
+            margin-top: 1rem; 
+            margin-bottom: 0.5rem;
+            width: 100%;
+            max-width: 180px;
+            height: auto;
+            display: flex;
+            justify-content: center;
+            opacity: 0.9; 
+        }
+
+        .wave-heart-decoration img {
+            width: 100%;
+            height: auto;
+            display: block;
+            vertical-align: bottom; 
+        }
+
+        /* --- COUNTDOWN BLOCK --- */
+        .countdown-display {
+            display: flex;
+            justify-content: center;
+            align-items: baseline;
+            gap: 8px;
+            font-family: var(--font-serif);
+            margin-bottom: 1rem;
+            background: transparent;
+            padding: 0.5rem 0;
+        }
+
+        .countdown-unit {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .countdown-number {
+            font-size: 2.2rem;
+            font-weight: 600;
+            color: var(--text-chocolate);
+            line-height: 1;
+            min-width: 45px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .countdown-label {
+            font-size: 0.6rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: var(--text-taupe);
+            margin-top: 6px;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .countdown-separator {
+            font-size: 1.8rem;
+            font-weight: 600;
+            color: var(--text-chocolate);
+            opacity: 0.5;
+            padding-bottom: 16px;
+        }
+
+        /* --- MESSAGE BLOCK (NO INDIVIDUAL BG) --- */
+        .message-block {
+            width: 100%;
+            max-width: 400px;
+            padding: 2rem 0;
+            margin-top: 0;
+            margin-bottom: 3rem;
+            background: transparent;
+        }
+
+        .message-title {
+            font-family: var(--font-script);
+            font-size: 1.8rem;
+            font-style: italic;
+            color: var(--text-chocolate);
+            margin-bottom: 1.2rem;
+            letter-spacing: 1px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .message-text {
+            font-family: var(--font-serif);
+            font-size: 1.05rem;
+            line-height: 1.6;
+            color: var(--text-chocolate);
+            margin-bottom: 1.5rem;
+            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+        }
+
+        .message-signature {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: #6D4C41;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .signature-names {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: var(--text-chocolate);
+            line-height: 1;
+            margin-bottom: 1.5rem;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .bottom-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1rem;
+        }
+
+        .bottom-line {
+            width: 80px;
+            height: 1px;
+            background-color: var(--text-chocolate);
+            opacity: 0.4;
+        }
+
+        .bottom-heart {
+            font-size: 0.6rem;
+            color: var(--text-chocolate);
+            opacity: 0.6;
+        }
+
+        /* --- COLLAGE BLOCK --- */
+        .collage-section {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 3rem;
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            gap: 12px;
+            height: 200px;
+        }
+
+        .collage-img-wrapper {
+            position: relative;
+            overflow: hidden;
+            border-radius: 6px;
+            box-shadow: 0 8px 20px rgba(62, 39, 35, 0.3);
+            transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.5s ease;
+            opacity: 0;
+            border: 3px solid rgba(255, 255, 255, 0.9);
+        }
+
+        .collage-img-wrapper.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .collage-img-wrapper img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+        .collage-left { width: 110px; height: 180px; transform: translateY(30px); }
+        .collage-center { width: 120px; height: 200px; transform: translateY(30px); z-index: 2; }
+        .collage-right { width: 110px; height: 180px; transform: translateY(30px); }
+
+        /* --- CALENDAR SECTION --- */
+        .calendar-header {
+            text-align: center;
+            margin-bottom: 0;
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            background: transparent;
+            padding: 1.5rem 0;
+        }
+
+        .month-year {
+            font-size: 1.2rem;
+            text-transform: uppercase;
+            letter-spacing: 3px;
+            font-weight: 600;
+            color: var(--text-taupe);
+            margin-bottom: 0.8rem;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        .calendar-grid {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 6px;
+            font-size: 0.85rem;
+            color: var(--text-taupe);
+            position: relative;
+            z-index: 2;
+        }
+
+        .day-name {
+            font-size: 0.65rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: center;
+            margin-bottom: 4px;
+            opacity: 0.7;
+            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+        }
+
+        .date-cell {
+            text-align: center;
+            height: 28px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        .heart-date {
+            color: #fff !important;
+            font-weight: 600;
+            z-index: 2;
+            text-shadow: 0 1px 4px rgba(0,0,0,0.3);
+        }
+
+        .heart-shape {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) rotate(45deg);
+            width: 28px;
+            height: 28px;
+            background-color: var(--text-chocolate);
+            border-radius: 4px;
+            z-index: 1;
+        }
+        
+        .heart-shape::before,
+        .heart-shape::after {
+            content: '';
+            position: absolute;
+            width: 28px;
+            height: 28px;
+            background-color: var(--text-chocolate);
+            border-radius: 50%;
+        }
+        .heart-shape::before { top: -14px; left: 0; }
+        .heart-shape::after { top: 0; left: -14px; }
+
+        .heart-date span {
+            position: relative;
+            z-index: 3;
+            font-size: 0.9rem;
+            margin-top: -2px;
+        }
+
+        /* --- TIMELINE (CONNECTED TO HEART) --- */
+        .timeline-wrapper {
+            position: relative;
+            /* ✅ REMOVED MARGIN TOP TO CONNECT TO CALENDAR */
+            margin-top: 0; 
+            padding-top: 0;
+            width: 100%;
+            max-width: 400px;
+            margin-left: auto;
+            margin-right: auto;
+            min-height: 550px;
+            z-index: 1;
+            background: transparent;
+        }
+
+        .timeline-svg {
+            position: absolute;
+            top: -20px; /* ✅ MOVED UP TO TOUCH THE HEART SHAPE */
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+            overflow: visible;
+        }
+
+        .timeline-svg path {
+            stroke: var(--line-color);
+            stroke-width: 1.2px;
+            fill: none;
+            stroke-linecap: round;
+            opacity: 0.8;
+            stroke-dasharray: 2000;
+            stroke-dashoffset: 2000;
+            transition: stroke-dashoffset 3s cubic-bezier(0.22, 1, 0.36, 1);
+            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+        }
+
+        .timeline-svg path.drawn {
+            stroke-dashoffset: 0;
+        }
+
+        .schedule-item {
+            position: absolute;
+            z-index: 3;
+            width: 130px;
+            opacity: 0;
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            background: transparent;
+            padding: 8px 12px;
+            border-radius: 6px;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .schedule-item.revealed {
+            opacity: 1;
+            transform: translateX(0) !important;
+        }
+
+        .sched-1 { left: calc(50% + 10px); top: 10%; text-align: left; transform: translateX(30px); }
+        .sched-2 { left: calc(50% - 130px); top: 26%; text-align: left; transform: translateX(-30px); }
+        .sched-3 { left: calc(50% + 10px); top: 44%; text-align: left; transform: translateX(30px); }
+        .sched-4 { left: calc(50% - 130px); top: 63%; text-align: left; transform: translateX(-30px); }
+
+        .schedule-time {
+            font-family: var(--font-script);
+            font-size: 1.4rem;
+            color: var(--text-chocolate);
+            line-height: 1;
+            margin-bottom: 4px;
+        }
+
+        .schedule-title {
+            font-family: var(--font-serif);
+            font-size: 0.7rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-taupe);
+            font-weight: 600;
+        }
+
+        /* --- LOCATIONS BLOCK --- */
+        .locations-section {
+            width: 100%;
+            max-width: 400px;
+            margin: 2rem auto 0;
+            text-align: center;
+            opacity: 0;
+            transform: translateX(-60px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+            position: relative;
+            background: transparent;
+            padding: 2rem 1.5rem 1rem;
+        }
+
+        .locations-section.revealed {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        .locations-title {
+            font-family: var(--font-script);
+            font-size: 2.8rem;
+            color: var(--text-chocolate);
+            margin-bottom: 0.1rem;
+            font-weight: 400;
+            line-height: 1.2;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .locations-divider {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: -2rem;
+            position: relative;
+            z-index: 2;
+        }
+
+        .loc-line {
+            width: 60px;
+            height: 1px;
+            background-color: var(--text-chocolate);
+            opacity: 0.4;
+        }
+
+        .loc-heart {
+            font-size: 0.5rem;
+            color: var(--text-chocolate);
+            opacity: 0.6;
+        }
+
+        .church-sketch-svg {
+            width: 240px;
+            height: auto;
+            margin: 0 auto 0.2rem;
+            display: block;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+        }
+
+        .church-name {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--text-chocolate);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+            margin-top: -3rem;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .church-location {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-taupe);
+            letter-spacing: 1px;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- MAP BUTTON STYLE --- */
+        .map-btn {
+            display: inline-block;
+            margin-top: 1rem;
+            padding: 8px 20px;
+            font-family: var(--font-serif);
+            font-size: 0.8rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            color: var(--text-chocolate);
+            background: rgba(255, 255, 255, 0.7);
+            border: 1px solid var(--text-chocolate);
+            border-radius: 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            backdrop-filter: blur(2px);
+        }
+
+        .map-btn:hover {
+            background: var(--text-chocolate);
+            color: #fff;
+        }
+
+        /* --- ZAGS BLOCK (RAISED UP) --- */
+        .zags-section {
+            width: 100%;
+            max-width: 400px;
+            margin: -1rem auto 0; 
+            text-align: center;
+            background: transparent;
+            padding: 1.5rem;
+        }
+
+        .zags-sketch-svg {
+            width: 100px;
+            height: auto;
+            margin: 0 auto 0.2rem;
+            display: block;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            margin-top: 0; 
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+        }
+
+        .zags-name {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--text-chocolate);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+            margin-top: -0.5rem;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .zags-location {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-taupe);
+            letter-spacing: 1px;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- BANQUET HALL BLOCK --- */
+        .banquet-section {
+            width: 100%;
+            max-width: 400px;
+            margin: 1.5rem auto 0;
+            text-align: center;
+            background: transparent;
+            padding: 1.5rem;
+        }
+
+        .banquet-sketch-svg {
+            width: 100px;
+            height: auto;
+            margin: 0 auto 0.2rem;
+            display: block;
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+            margin-top: 0; 
+            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+        }
+
+        .banquet-name {
+            font-family: var(--font-serif);
+            font-size: 1.3rem;
+            color: var(--text-chocolate);
+            font-weight: 600;
+            margin-bottom: 0.3rem;
+            line-height: 1.3;
+            margin-top: 0;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .banquet-location {
+            font-family: var(--font-serif);
+            font-size: 0.9rem;
+            font-style: italic;
+            color: var(--text-taupe);
+            letter-spacing: 1px;
+            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+        }
+
+        /* --- RSVP FORM STYLES --- */
+        .rsvp-section {
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto 0;
+            text-align: center;
+            padding: 2rem 1.5rem;
+            border: 1px solid rgba(109, 76, 65, 0.2);
+            border-radius: 12px;
+            background: rgba(255, 255, 255, 0.6);
+            backdrop-filter: blur(4px);
+        }
+
+        .rsvp-title {
+            font-family: var(--font-script);
+            font-size: 2.2rem;
+            color: var(--text-chocolate);
+            margin-bottom: 1.5rem;
+            font-weight: 400;
+        }
+
+        .rsvp-form {
+            display: flex;
+            flex-direction: column;
+            gap: 1rem;
+            text-align: left;
+        }
+
+        .rsvp-label {
+            font-family: var(--font-serif);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 1.5px;
+            color: var(--text-taupe);
+            margin-bottom: 0.3rem;
+            display: block;
+        }
+
+        .rsvp-input,
+        .rsvp-select,
+        .rsvp-textarea {
+            width: 100%;
+            padding: 10px 12px;
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-chocolate);
+            background: rgba(255, 255, 255, 0.9);
+            border: 1px solid rgba(109, 76, 65, 0.3);
+            border-radius: 2px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .rsvp-input:focus,
+        .rsvp-select:focus,
+        .rsvp-textarea:focus {
+            border-color: var(--text-chocolate);
+        }
+
+        .rsvp-textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .attendance-options {
+            display: flex;
+            flex-direction: column;
+            gap: 0.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .attendance-option {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+        }
+
+        .attendance-option input[type="radio"] {
+            appearance: none;
+            -webkit-appearance: none;
+            width: 18px;
+            height: 18px;
+            border: 1.5px solid var(--text-chocolate);
+            border-radius: 50%;
+            cursor: pointer;
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .attendance-option input[type="radio"]:checked {
+            background-color: var(--text-chocolate);
+        }
+
+        .attendance-option input[type="radio"]:checked::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 6px;
+            height: 6px;
+            background-color: #fff;
+            border-radius: 50%;
+        }
+
+        .attendance-option label {
+            font-family: var(--font-serif);
+            font-size: 1rem;
+            color: var(--text-chocolate);
+            cursor: pointer;
+        }
+
+        .rsvp-btn {
+            margin-top: 0.5rem;
+            padding: 12px 24px;
+            font-family: var(--font-serif);
+            font-size: 0.85rem;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            color: #fff;
+            background-color: var(--text-chocolate);
+            border: none;
+            border-radius: 2px;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            align-self: center;
+        }
+
+        .rsvp-btn:hover {
+            background-color: var(--text-taupe);
+        }
+
+        .rsvp-success {
+            display: none;
+            font-family: var(--font-script);
+            font-size: 1.5rem;
+            color: var(--text-chocolate);
+            margin-top: 1rem;
+        }
+
+        /* --- FINAL CLOSING MESSAGE --- */
+        .closing-message {
+            width: 100%;
+            max-width: 400px;
+            margin: 3rem auto 0;
+            text-align: center;
+            background: transparent;
+            padding: 2rem;
+        }
+
+        .closing-text {
+            font-family: var(--font-script);
+            font-size: 2rem;
+            color: var(--text-chocolate);
+            font-style: italic;
+            line-height: 1.4;
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        /* --- DECORATIVE LINE BEFORE L'INVITATION --- */
+        .decor-line-before-linvitation {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 2rem auto 1rem;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        .decor-line {
+            flex: 1;
+            height: 1px;
+            background-color: var(--text-chocolate);
+            opacity: 0.4;
+        }
+
+        .decor-heart {
+            font-size: 0.8rem;
+            color: var(--text-chocolate);
+            opacity: 0.6;
+        }
+
+        /* --- L'INVITATION FINAL TEXT --- */
+        .linvitation-text {
+            font-family: var(--font-script);
+            font-size: 2.5rem;
+            color: var(--text-chocolate);
+            margin-top: 0;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 2s ease, transform 2s cubic-bezier(0.22, 1, 0.36, 1);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+        }
+
+        .linvitation-text.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ============================================
+           SCROLL REVEAL ANIMATION CLASSES
+           ============================================ */
+        .scroll-reveal {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.5s ease, transform 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+        }
+
+        .scroll-reveal.revealed {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 480px) {
+            body { padding-top: 0; }
+            .names { font-size: 2rem; margin-top: 8vh; }
+            .divider-container { width: 95%; }
+            .date-value { font-size: 1.8rem; }
+            .vertical-line { height: 45px; }
+            .wave-heart-decoration { max-width: 150px; margin-top: 0.5rem; margin-bottom: 0.2rem; }
+            .message-title { font-size: 1.5rem; }
+            .signature-names { font-size: 1.8rem; }
+            
+            .heart-shape, .heart-shape::before, .heart-shape::after { width: 24px; height: 24px; }
+            .heart-shape::before { top: -12px; }
+            .heart-shape::after { left: -12px; }
+            .timeline-wrapper { margin-top: 0; padding-top: 0; }
+            
+            .sched-1 { left: calc(50% + 5px); }
+            .sched-2 { left: calc(50% - 120px); }
+            .sched-3 { left: calc(50% + 5px); }
+            .sched-4 { left: calc(50% - 120px); }
+            
+            .church-sketch-svg { width: 200px; }
+            .zags-sketch-svg, .banquet-sketch-svg { width: 80px; }
+            .locations-title { font-size: 2.2rem; }
+            
+            .countdown-number { font-size: 1.8rem; min-width: 35px; }
+            .countdown-separator { font-size: 1.4rem; }
+            
+            .rsvp-section { padding: 1.5rem 1rem; }
+            .rsvp-title { font-size: 1.8rem; }
+            .closing-text { font-size: 1.6rem; }
+            
+            .collage-left { width: 90px; height: 150px; }
+            .collage-center { width: 100px; height: 170px; }
+            .collage-right { width: 90px; height: 150px; }
+            .collage-section { height: 180px; gap: 8px; }
+            
+            .first-page-block {
+                padding: 40px 15px 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- ✅ AUDIO ELEMENT -->
+    <audio id="bgMusic" loop preload="auto">
+        <source src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Alex_Warren_-_Ordinary_Wedding_Version_Official_Music_Video.mp3?v=1794696211" type="audio/mpeg">
+    </audio>
+
+    <!-- ============================================
+         VIDEO INTRO OVERLAY
+         ============================================ -->
+    <div class="video-intro-overlay" id="videoOverlay">
+        <div class="video-container-full" id="videoContainer">
+            <video id="introVideo" playsinline muted preload="auto">
+                <source src="https://cdn.shopify.com/videos/c/o/v/8ce6a7a2e9254dbabe3e8ab40c6b702c.mp4" type="video/mp4">
+            </video>
+            <div class="tap-hint" id="tapHint"></div>
+        </div>
+    </div>
+
+    <!-- ============================================
+         MAIN INVITATION CONTENT
+         ============================================ -->
+    <section class="hero-section" id="heroSection">
+        
+        <!-- ✅ WRAPPER FOR NAMES/DATE WITH PEARL SILK BG -->
+        <div class="first-page-block">
+            <h1 class="names" id="coupleNames">Aharon & Lusine</h1>
+            
+            <div class="divider-container">
+                <div class="divider-line"></div>
+                <span class="divider-icon">♥</span>
+            </div>
+
+            <div class="subtitle">Wedding Invitation</div>
+
+            <div class="date-section" id="dateSection">
+                <div class="wedding-day-title">Wedding Day</div>
+                
+                <div class="date-frame">
+                    <div class="vertical-line"></div>
+                    <div class="date-content">
+                        <span class="date-label">date</span>
+                        <span class="date-value">27 March</span>
+                    </div>
+                    <div class="vertical-line"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ✅ REST OF THE CONTENT IS ON SOFT SILK BG -->
+        <div class="content-container">
+            
+            <div class="wave-heart-decoration">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download-_27.svg?v=1794692608" 
+                     alt="Decorative Wave Hearts">
+            </div>
+
+            <div class="countdown-display scroll-reveal" id="countdown">
+                <div class="countdown-unit">
+                    <span class="countdown-number" id="cd-days">00</span>
+                    <span class="countdown-label">օր</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-number" id="cd-hours">00</span>
+                    <span class="countdown-label">ժամ</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-number" id="cd-minutes">00</span>
+                    <span class="countdown-label">րոպ</span>
+                </div>
+                <span class="countdown-separator">:</span>
+                <div class="countdown-unit">
+                    <span class="countdown-number" id="cd-seconds">00</span>
+                    <span class="countdown-label">վրկ</span>
+                </div>
+            </div>
+
+            <div class="message-block scroll-reveal">
+                <div class="message-title">Dear Family and Friends!</div>
+                
+                <p class="message-text">
+                    We are so happy to invite you<br>
+                    to share this meaningful day with us.<br>
+                    Your presence will make our<br>
+                    wedding even more special.
+                </p>
+                
+                <div class="message-signature">With love,</div>
+                <div class="signature-names">Aharon & Lusine</div>
+                
+                <div class="bottom-divider">
+                    <div class="bottom-line"></div>
+                    <span class="bottom-heart">♥</span>
+                    <div class="bottom-line"></div>
+                </div>
+            </div>
+
+            <div class="collage-section scroll-reveal" id="collageSection">
+                <div class="collage-img-wrapper collage-left">
+                    <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-10_10-59-29.jpg?v=1794693895" 
+                         alt="Couple Photo 1">
+                </div>
+                <div class="collage-img-wrapper collage-center">
+                    <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-10_11-06-23_2.jpg?v=1794693945" 
+                         alt="Couple Photo 2">
+                </div>
+                <div class="collage-img-wrapper collage-right">
+                    <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-10_10-59-15.jpg?v=1794693894" 
+                         alt="Couple Photo 3">
+                </div>
+            </div>
+
+            <div class="calendar-header scroll-reveal">
+                <div class="month-year">March 2027</div>
+                <div class="calendar-grid">
+                    <div class="day-name">Thu</div>
+                    <div class="day-name">Fri</div>
+                    <div class="day-name">Sat</div>
+                    <div class="day-name">Sun</div>
+                    <div class="day-name">Mon</div>
+                    
+                    <div class="date-cell">25</div>
+                    <div class="date-cell">26</div>
+                    
+                    <div class="date-cell heart-date">
+                        <div class="heart-shape"></div>
+                        <span>27</span>
+                    </div>
+                    
+                    <div class="date-cell">28</div>
+                    <div class="date-cell">29</div>
+                </div>
+            </div>
+
+            <!-- ✅ TIMELINE (CONNECTED TO HEART) -->
+            <div class="timeline-wrapper scroll-reveal" id="timelineWrapper">
+                <svg class="timeline-svg" viewBox="0 0 200 550" preserveAspectRatio="none">
+                    <!-- ✅ PATH STARTS FROM TOP CENTER (CONNECTED TO HEART) -->
+                    <path d="M100,0 
+                             C80,30 10,60 100,120 
+                             C190,180 10,240 100,300 
+                             C190,360 10,420 100,480" 
+                          id="timelinePath" />
+                </svg>
+                
+                <div class="schedule-item sched-1" data-delay="0">
+                    <div class="schedule-time">11:00</div>
+                    <div class="schedule-title">Հարսի տուն</div>
+                </div>
+                <div class="schedule-item sched-2" data-delay="300">
+                    <div class="schedule-time">13:30</div>
+                    <div class="schedule-title">Պսակադրություն</div>
+                </div>
+                <div class="schedule-item sched-3" data-delay="600">
+                    <div class="schedule-time">16:30</div>
+                    <div class="schedule-title">Զագսի արարողություն</div>
+                </div>
+                <div class="schedule-item sched-4" data-delay="900">
+                    <div class="schedule-time">17:00</div>
+                    <div class="schedule-title">Հարսանյաց արարողություն</div>
+                </div>
+            </div>
+
+            <!-- ✅ LOCATIONS BLOCK -->
+            <div class="locations-section scroll-reveal" id="locationsSection">
+                <div class="locations-title">Locations</div>
+                
+                <div class="locations-divider">
+                    <div class="loc-line"></div>
+                    <span class="loc-heart">♥</span>
+                    <div class="loc-line"></div>
+                </div>
+                
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download-_24.svg?v=1794685352" 
+                     alt="Armenian Church Sketch" 
+                     class="church-sketch-svg">
+                
+                <div class="church-name">Սուրբ Ամենափրկիչ եկեղեցի</div>
+                <div class="church-location">Նոր Հաճն</div>
+                <!-- ✅ MAP BUTTON -->
+                <a href="https://www.google.com/maps/search/?api=1&query=Surp+Amenaprkich+Church+Nor+Hachn" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
+            </div>
+
+            <!-- ✅ ZAGS BLOCK (RAISED) -->
+            <div class="zags-section scroll-reveal">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download-_25.svg?v=1794686862" 
+                     alt="Zags Ceremony Rings Sketch" 
+                     class="zags-sketch-svg">
+                
+                <div class="zags-name">Զագսի արարողություն</div>
+                <div class="zags-location">Ginats Hall բակում</div>
+                <!-- ✅ MAP BUTTON -->
+                <a href="https://www.google.com/maps/search/?api=1&query=Ginats+Hall" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
+            </div>
+
+            <!-- ✅ BANQUET HALL BLOCK -->
+            <div class="banquet-section scroll-reveal">
+                <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/47-Wedding-Coloring-Pages-_Free-PDF-Printables.svg?v=1794689489" 
+                     alt="Banquet Hall Sketch" 
+                     class="banquet-sketch-svg">
+                
+                <div class="banquet-name">Հարսանյաց սրահ</div>
+                <div class="banquet-location">Ginats Hall</div>
+                <!-- ✅ MAP BUTTON -->
+                <a href="https://www.google.com/maps/search/?api=1&query=Ginats+Hall" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
+            </div>
+
+            <!-- ✅ RSVP FORM -->
+            <div class="rsvp-section scroll-reveal">
+                <div class="rsvp-title">RSVP</div>
+                
+                <form class="rsvp-form" id="rsvpForm">
+                    <div>
+                        <label class="rsvp-label">Կմասնակցե՞ք</label>
+                        <div class="attendance-options">
+                            <div class="attendance-option">
+                                <input type="radio" id="attendYes" name="attendance" value="yes" required>
+                                <label for="attendYes">Այո, սիրով կմասնակցենք</label>
+                            </div>
+                            <div class="attendance-option">
+                                <input type="radio" id="attendNo" name="attendance" value="no">
+                                <label for="attendNo">Ոչ, ցավոք չենք կարողանա</label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div>
+                        <label class="rsvp-label" for="guestName">Անուն Ազգանուն</label>
+                        <input type="text" id="guestName" class="rsvp-input" placeholder="Ձեր անունը և ազգանունը" required>
+                    </div>
+                    
+                    <div>
+                        <label class="rsvp-label" for="guestCount">Հյուրերի քանակ</label>
+                        <select id="guestCount" class="rsvp-select" required>
+                            <option value="" disabled selected>Ընտրեք քանակը</option>
+                            <option value="1">1 հյուր</option>
+                            <option value="2">2 հյուր</option>
+                            <option value="3">3 հյուր</option>
+                            <option value="4">4 հյուր</option>
+                            <option value="5">5 հյուր</option>
+                        </select>
+                    </div>
+                    
+                    <div>
+                        <label class="rsvp-label" for="guestWish">Մաղթանք</label>
+                        <textarea id="guestWish" class="rsvp-textarea" placeholder="Ձեր մաղթանքը..."></textarea>
+                    </div>
+                    
+                    <button type="submit" class="rsvp-btn">Ուղարկել</button>
+                </form>
+                
+                <div class="rsvp-success" id="rsvpSuccess">
+                    Շնորհակալություն! Ձեր պատասխանն ուղարկված է ♥
+                </div>
+            </div>
+
+            <div class="closing-message scroll-reveal">
+                <div class="closing-text">With love,<br>we await you</div>
+            </div>
+
+            <!-- ✅ DECORATIVE LINE BEFORE L'INVITATION -->
+            <div class="decor-line-before-linvitation scroll-reveal">
+                <div class="decor-line"></div>
+                <span class="decor-heart">♥</span>
+                <div class="decor-line"></div>
+            </div>
+
+            <div class="linvitation-text scroll-reveal" id="linvitationText">
+                L'Invitation
+            </div>
+
+        </div>
+
+    </section>
+
+    <!-- ✅ ALL JAVASCRIPT -->
+    <script>
+        const videoOverlay = document.getElementById('videoOverlay');
+        const introVideo = document.getElementById('introVideo');
+        const bgMusic = document.getElementById('bgMusic');
+        const heroSection = document.getElementById('heroSection');
+        const tapHint = document.getElementById('tapHint');
+        const videoContainer = document.getElementById('videoContainer');
+        const coupleNames = document.getElementById('coupleNames');
+        const dateSection = document.getElementById('dateSection');
+        
+        let isOpened = false;
+        let hasStarted = false;
+        const SKIP_LAST_SECONDS = 4;
+
+        function openInvitation() {
+            if (isOpened) return;
+            isOpened = true;
+
+            introVideo.pause();
+            
+            videoOverlay.classList.add('hidden');
+            heroSection.classList.add('visible');
+            
+            document.body.style.overflowY = 'auto';
+
+            setTimeout(function() {
+                coupleNames.classList.add('animate-in');
+            }, 600);
+
+            setTimeout(function() {
+                dateSection.classList.add('animate-in');
+            }, 1800);
+
+            setTimeout(function() {
+                videoOverlay.style.display = 'none';
+            }, 1200);
+        }
+
+        videoContainer.addEventListener('click', function(e) {
+            if (isOpened) return;
+
+            if (!hasStarted) {
+                hasStarted = true;
+                introVideo.muted = false;
+                
+                Promise.all([
+                    introVideo.play(),
+                    bgMusic.play()
+                ]).then(() => {
+                    tapHint.classList.add('visible');
+                }).catch(function(err) {
+                    console.log("Autoplay prevented:", err);
+                    introVideo.muted = false;
+                    introVideo.play();
+                    tapHint.classList.add('visible');
+                });
+            } else {
+                openInvitation();
+            }
+        });
+
+        introVideo.addEventListener('timeupdate', function() {
+            if (isOpened) return;
+            const duration = introVideo.duration;
+            const currentTime = introVideo.currentTime;
+            if (duration && (duration - currentTime) <= SKIP_LAST_SECONDS) {
+                openInvitation();
+            }
+        });
+
+        introVideo.addEventListener('ended', function() {
+            openInvitation();
+        });
+
+        // ============================================
+        // SCROLL REVEAL
+        // ============================================
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const scrollObserver = new IntersectionObserver(function(entries, observer) {
+            entries.forEach(function(entry) {
+                if (entry.isIntersecting) {
+                    
+                    if (entry.target.id === 'timelineWrapper') {
+                        const path = document.getElementById('timelinePath');
+                        path.classList.add('drawn');
+                        
+                        const items = entry.target.querySelectorAll('.schedule-item');
+                        items.forEach(function(item, index) {
+                            const delay = parseInt(item.getAttribute('data-delay')) || 0;
+                            setTimeout(function() {
+                                item.classList.add('revealed');
+                            }, 500 + delay);
+                        });
+                    }
+                    
+                    if (entry.target.id === 'collageSection') {
+                        const wrappers = entry.target.querySelectorAll('.collage-img-wrapper');
+                        wrappers.forEach(function(wrapper, index) {
+                            setTimeout(function() {
+                                wrapper.classList.add('revealed');
+                            }, index * 200);
+                        });
+                    }
+                    
+                    entry.target.classList.add('revealed');
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.scroll-reveal').forEach(function(el) {
+            scrollObserver.observe(el);
+        });
+
+        // ============================================
+        // COUNTDOWN TIMER
+        // ============================================
+        const weddingDate = new Date('2027-03-27T00:00:00').getTime();
+
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = weddingDate - now;
+
+            if (distance <= 0) {
+                document.getElementById('countdown').innerHTML = 
+                    '<div style="font-family:var(--font-script);font-size:2rem;color:var(--text-chocolate)">🎉 Today is the day! 🎉</div>';
+                return;
+            }
+
+            const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+            const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+            const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+            document.getElementById('cd-days').textContent = String(days).padStart(2, '0');
+            document.getElementById('cd-hours').textContent = String(hours).padStart(2, '0');
+            document.getElementById('cd-minutes').textContent = String(minutes).padStart(2, '0');
+            document.getElementById('cd-seconds').textContent = String(seconds).padStart(2, '0');
+        }
+
+        updateCountdown();
+        setInterval(updateCountdown, 1000);
+
+        // ============================================
+        // RSVP FORM → TELEGRAM
+        // ============================================
+        const BOT_TOKEN = 'YOUR_BOT_TOKEN';
+        const CHAT_ID = 'YOUR_CHAT_ID';
+
+        document.getElementById('rsvpForm').addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            const attendance = document.querySelector('input[name="attendance"]:checked');
+            const name = document.getElementById('guestName').value.trim();
+            const count = document.getElementById('guestCount').value;
+            const wish = document.getElementById('guestWish').value.trim();
+
+            let message = `💒 *New RSVP*\n\n`;
+            
+            if (attendance.value === 'yes') {
+                message += `✅ *Attendance:* Yes, with pleasure\n`;
+            } else {
+                message += `❌ *Attendance:* No, unfortunately cannot attend\n`;
+            }
+            
+            message += `👤 *Name:* ${name}\n`;
+            message += `👥 *Guests:* ${count}\n`;
+            message += `💬 *Wish:* ${wish || '—'}`;
+
+            try {
+                const response = await fetch(`https://api.telegram.org/bot${BOT_TOKEN}/sendMessage`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        chat_id: CHAT_ID,
+                        text: message,
+                        parse_mode: 'Markdown'
+                    })
+                });
+
+                if (response.ok) {
+                    document.getElementById('rsvpForm').style.display = 'none';
+                    document.getElementById('rsvpSuccess').style.display = 'block';
+                } else {
+                    alert('Սխալ է տեղի ունեցել։ Խնդրում ենք փորձել կրկին։');
+                }
+            } catch (err) {
+                alert('Սխալ է տեղի ունեցել։ Խնդրում ենք փորձել կրկին։');
+            }
+        });
+    </script>
+
+</body>
+</html>
