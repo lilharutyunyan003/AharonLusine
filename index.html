@@ -25,20 +25,20 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background-color: #000;
+            background-color: #000; /* Black background for video cover */
             color: var(--text-chocolate);
             font-family: var(--font-serif);
             display: flex;
             justify-content: center;
             min-height: 100vh;
             overflow-x: hidden;
-            overflow-y: hidden; /* Locked until invitation opens */
+            overflow-y: hidden; /* Locked until opened */
         }
 
         /* ============================================
-           VIDEO INTRO OVERLAY
+           VIDEO COVER OVERLAY
            ============================================ */
-        .video-intro-overlay {
+        .video-cover-overlay {
             position: fixed;
             top: 0;
             left: 0;
@@ -52,7 +52,7 @@
             transition: opacity 1.5s ease, visibility 1.5s ease;
         }
 
-        .video-intro-overlay.hidden {
+        .video-cover-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
@@ -63,6 +63,7 @@
             height: 100%;
             position: relative;
             cursor: pointer;
+            background: #000;
         }
 
         .video-container-full video {
@@ -74,12 +75,13 @@
             left: 0;
         }
 
+        /* Hint to tap */
         .tap-hint {
             position: absolute;
             bottom: 30px;
             left: 50%;
             transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.9);
+            color: rgba(255, 255, 255, 0.8);
             text-shadow: 0 1px 4px rgba(0,0,0,0.6);
             font-family: var(--font-serif);
             font-size: 0.7rem;
@@ -102,7 +104,7 @@
         }
 
         /* ============================================
-           MAIN INVITATION CONTENT CARD
+           MAIN INVITATION CONTENT
            ============================================ */
         .hero-section {
             max-width: 100%;
@@ -116,7 +118,6 @@
             transform: translateY(30px);
             transition: opacity 2s ease, transform 2s cubic-bezier(0.22, 1, 0.36, 1);
             min-height: 100vh;
-            background: transparent;
             position: relative;
             z-index: 1;
         }
@@ -129,35 +130,38 @@
         /* --- FIRST PAGE BLOCK (NAMES + DATE) - PEARL SILK BG --- */
         .first-page-block {
             width: 100%;
-            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Pearl_Silk_Wallpaper___Minimalist_Aesthetic.jpg?v=1794724840');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: flex-start;
-            padding: 60px 20px 40px;
+            /* ✅ JUSTIFY-CONTENT CHANGED TO FLEX-START TO MOVE CONTENT UP */
+            justify-content: flex-start; 
+            /* ✅ REDUCED TOP PADDING TO MOVE NAMES HIGHER */
+            padding: 15vh 20px 40px; 
             position: relative;
             z-index: 2;
+            /* ✅ PEARL SILK BACKGROUND FOR NAMES SECTION */
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Pearl_Silk_Wallpaper___Minimalist_Aesthetic.jpg?v=1794724840');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        /* --- NAMES WITH DROP-DOWN ANIMATION --- */
+        /* --- NAMES WITH FADE-IN ANIMATION --- */
         .names {
             font-family: var(--font-script);
-            font-size: 2.4rem; 
+            font-size: 3rem; 
             color: var(--text-chocolate);
-            line-height: 1;
-            margin-bottom: 0.3rem;
+            line-height: 1.2;
+            margin-bottom: 1rem;
             font-weight: 400;
             white-space: nowrap;
             opacity: 0;
-            transform: translateY(-50px);
+            transform: translateY(20px);
             transition: opacity 2s ease, transform 2s cubic-bezier(0.34, 1.56, 0.64, 1);
-            margin-top: 5vh; 
-            margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            /* ✅ REMOVED MARGIN-TOP TO LET PADDING HANDLE POSITION */
+            margin-top: 0; 
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .names.animate-in {
@@ -167,13 +171,13 @@
 
         /* --- DECORATIVE DIVIDER --- */
         .divider-container {
-            width: 90%;
+            width: 80%;
             height: 20px;
             display: flex;
             align-items: center;
             justify-content: center;
             position: relative;
-            margin: 0 auto 0.1rem;
+            margin: 0 auto 1rem;
         }
 
         .divider-line {
@@ -185,25 +189,24 @@
         }
 
         .divider-icon {
-            background: var(--bg-paper);
+            background: rgba(249, 246, 240, 0.8);
             padding: 0 12px;
             color: var(--accent-gold);
-            font-size: 0.7rem;
+            font-size: 0.8rem;
             z-index: 1;
             border-radius: 50%;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
         /* --- SUBTITLE --- */
         .subtitle {
             font-family: var(--font-serif);
             text-transform: uppercase;
-            letter-spacing: 2.5px;
-            font-size: 0.7rem; 
+            letter-spacing: 3px;
+            font-size: 0.8rem; 
             color: #6D4C41;
             margin-top: 0;
-            margin-bottom: 1.2rem;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            margin-bottom: 2rem;
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         /* --- DATE SECTION --- */
@@ -227,11 +230,11 @@
             font-family: var(--font-serif);
             text-transform: uppercase;
             letter-spacing: 4px;
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: #6D4C41;
-            margin-bottom: 0.8rem;
+            margin-bottom: 1rem;
             font-weight: 600;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .date-frame {
@@ -261,20 +264,18 @@
             font-style: italic;
             color: #6D4C41;
             margin-bottom: -2px;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .date-value {
-            font-size: 2.2rem;
+            font-size: 2.5rem;
             font-weight: 600;
             color: var(--text-chocolate);
             line-height: 1;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
-        /* --- REST OF THE CONTENT (ON NEW BACKGROUND) --- */
-        
-        /* Container for content on NEW BACKGROUND */
+        /* --- REST OF THE CONTENT (SOFT AS SILK BG) --- */
         .content-container {
             width: 100%;
             max-width: 500px;
@@ -282,20 +283,19 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* ✅ NEW BACKGROUND STARTS HERE AND COVERS FULL SCREEN */
-            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download_29.jpg?v=1794728339');
+            /* ✅ SOFT AS SILK BACKGROUND FOR REST OF PAGE */
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Soft_as_silk_1.jpg?v=1794726578');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
-            background-attachment: fixed;
-            /* Smooth transition from Pearl Silk */
-            margin-top: -1px; 
+            background-attachment: fixed; /* Keeps background steady while scrolling */
+            margin-top: 0; /* Connects directly to first block */
         }
 
         /* --- WAVE HEART DECORATION --- */
         .wave-heart-decoration {
             margin-top: 1rem; 
-            margin-bottom: 0.5rem;
+            margin-bottom: 1rem;
             width: 100%;
             max-width: 180px;
             height: auto;
@@ -308,7 +308,6 @@
             width: 100%;
             height: auto;
             display: block;
-            vertical-align: bottom; 
         }
 
         /* --- COUNTDOWN BLOCK --- */
@@ -318,7 +317,7 @@
             align-items: baseline;
             gap: 8px;
             font-family: var(--font-serif);
-            margin-bottom: 1rem;
+            margin-bottom: 2rem;
             background: transparent;
             padding: 0.5rem 0;
         }
@@ -335,7 +334,7 @@
             color: var(--text-chocolate);
             line-height: 1;
             min-width: 45px;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .countdown-label {
@@ -344,7 +343,7 @@
             letter-spacing: 2px;
             color: var(--text-taupe);
             margin-top: 6px;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .countdown-separator {
@@ -355,7 +354,7 @@
             padding-bottom: 16px;
         }
 
-        /* --- MESSAGE BLOCK (NO INDIVIDUAL BG) --- */
+        /* --- MESSAGE BLOCK --- */
         .message-block {
             width: 100%;
             max-width: 400px;
@@ -372,7 +371,7 @@
             color: var(--text-chocolate);
             margin-bottom: 1.2rem;
             letter-spacing: 1px;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .message-text {
@@ -381,7 +380,7 @@
             line-height: 1.6;
             color: var(--text-chocolate);
             margin-bottom: 1.5rem;
-            text-shadow: 0 1px 8px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .message-signature {
@@ -389,7 +388,7 @@
             font-size: 1rem;
             color: #6D4C41;
             margin-bottom: 0.5rem;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .signature-names {
@@ -398,7 +397,7 @@
             color: var(--text-chocolate);
             line-height: 1;
             margin-bottom: 1.5rem;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .bottom-divider {
@@ -422,26 +421,26 @@
             opacity: 0.6;
         }
 
-        /* --- COLLAGE BLOCK (ENLARGED) --- */
+        /* --- COLLAGE BLOCK --- */
         .collage-section {
             width: 100%;
-            max-width: 450px; /* ✅ INCREASED WIDTH */
-            margin: 1.5rem auto 2rem; /* ✅ REDUCED MARGINS */
+            max-width: 450px;
+            margin: 1.5rem auto 2rem;
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 10px; /* ✅ REDUCED GAP */
-            height: 240px; /* ✅ INCREASED HEIGHT */
+            gap: 10px;
+            height: 240px;
         }
 
         .collage-img-wrapper {
             position: relative;
             overflow: hidden;
             border-radius: 6px;
-            box-shadow: 0 8px 20px rgba(62, 39, 35, 0.3);
+            box-shadow: 0 8px 20px rgba(62, 39, 35, 0.15);
             transition: transform 1.5s cubic-bezier(0.22, 1, 0.36, 1), opacity 1.5s ease;
             opacity: 0;
-            border: 3px solid rgba(255, 255, 255, 0.9);
+            border: 3px solid #fff;
         }
 
         .collage-img-wrapper.revealed {
@@ -456,9 +455,9 @@
             display: block;
         }
 
-        .collage-left { width: 130px; height: 210px; transform: translateY(30px); } /* ✅ ENLARGED */
-        .collage-center { width: 140px; height: 240px; transform: translateY(30px); z-index: 2; } /* ✅ ENLARGED */
-        .collage-right { width: 130px; height: 210px; transform: translateY(30px); } /* ✅ ENLARGED */
+        .collage-left { width: 130px; height: 210px; transform: translateY(30px); }
+        .collage-center { width: 140px; height: 240px; transform: translateY(30px); z-index: 2; }
+        .collage-right { width: 130px; height: 210px; transform: translateY(30px); }
 
         /* --- CALENDAR SECTION --- */
         .calendar-header {
@@ -466,9 +465,9 @@
             margin-bottom: 0;
             width: 100%;
             max-width: 400px;
-            margin: 1.5rem auto 0; /* ✅ REDUCED MARGIN */
+            margin: 1.5rem auto 0;
             background: transparent;
-            padding: 1rem 0; /* ✅ REDUCED PADDING */
+            padding: 1rem 0;
         }
 
         .month-year {
@@ -478,7 +477,7 @@
             font-weight: 600;
             color: var(--text-taupe);
             margin-bottom: 0.8rem;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .calendar-grid {
@@ -498,7 +497,7 @@
             text-align: center;
             margin-bottom: 4px;
             opacity: 0.7;
-            text-shadow: 0 1px 4px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         .date-cell {
@@ -548,11 +547,11 @@
             margin-top: -2px;
         }
 
-        /* --- TIMELINE (CONNECTED TO HEART) --- */
+        /* --- TIMELINE --- */
         .timeline-wrapper {
             position: relative;
-            /* ✅ REMOVED MARGIN TOP TO CONNECT TO CALENDAR */
-            margin-top: 0; 
+            /* ✅ ADJUSTED MARGIN TO CONNECT S-LINE TO HEART */
+            margin-top: -10px; 
             padding-top: 0;
             width: 100%;
             max-width: 400px;
@@ -565,7 +564,8 @@
 
         .timeline-svg {
             position: absolute;
-            top: -20px; /* ✅ MOVED UP TO TOUCH THE HEART SHAPE */
+            /* ✅ MOVED SVG UP TO TOUCH THE BOTTOM OF THE HEART SHAPE */
+            top: -25px; 
             left: 50%;
             transform: translateX(-50%);
             width: 200px;
@@ -584,7 +584,7 @@
             stroke-dasharray: 2000;
             stroke-dashoffset: 2000;
             transition: stroke-dashoffset 3s cubic-bezier(0.22, 1, 0.36, 1);
-            filter: drop-shadow(0 0 4px rgba(255, 255, 255, 0.9));
+            filter: drop-shadow(0 0 2px rgba(255,255,255,0.5));
         }
 
         .timeline-svg path.drawn {
@@ -600,7 +600,7 @@
             background: transparent;
             padding: 8px 12px;
             border-radius: 6px;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .schedule-item.revealed {
@@ -608,11 +608,10 @@
             transform: translateX(0) !important;
         }
 
-        /* ✅ RAISED SCHEDULE ITEMS WITH ADJUSTED LEFT POSITION FOR LEFT-SIDE ITEMS */
-        .sched-1 { left: calc(50% + 10px); top: 8%; text-align: left; transform: translateX(30px); }
-        .sched-2 { left: calc(50% - 145px); top: 24%; text-align: left; transform: translateX(-30px); } /* ✅ MOVED MORE LEFT */
-        .sched-3 { left: calc(50% + 10px); top: 42%; text-align: left; transform: translateX(30px); }
-        .sched-4 { left: calc(50% - 145px); top: 61%; text-align: left; transform: translateX(-30px); } /* ✅ MOVED MORE LEFT */
+        .sched-1 { left: calc(50% + 10px); top: 5%; text-align: left; transform: translateX(30px); }
+        .sched-2 { left: calc(50% - 145px); top: 22%; text-align: left; transform: translateX(-30px); }
+        .sched-3 { left: calc(50% + 10px); top: 40%; text-align: left; transform: translateX(30px); }
+        .sched-4 { left: calc(50% - 145px); top: 58%; text-align: left; transform: translateX(-30px); }
 
         .schedule-time {
             font-family: var(--font-script);
@@ -631,11 +630,11 @@
             font-weight: 600;
         }
 
-        /* --- LOCATIONS BLOCK (RAISED UP - IMMEDIATELY UNDER S-SHAPE LINE) --- */
+        /* --- LOCATIONS BLOCK --- */
         .locations-section {
             width: 100%;
             max-width: 400px;
-            margin: -2rem auto 0; /* ✅ RAISED SIGNIFICANTLY */
+            margin: 2rem auto 0;
             text-align: center;
             opacity: 0;
             transform: translateX(-60px);
@@ -657,7 +656,7 @@
             margin-bottom: 0.1rem;
             font-weight: 400;
             line-height: 1.2;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .locations-divider {
@@ -665,7 +664,7 @@
             align-items: center;
             justify-content: center;
             gap: 10px;
-            margin-bottom: -2rem;
+            margin-bottom: 1rem;
             position: relative;
             z-index: 2;
         }
@@ -691,7 +690,7 @@
             opacity: 0.95;
             position: relative;
             z-index: 1;
-            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+            filter: drop-shadow(0 2px 5px rgba(255,255,255,0.8));
         }
 
         .church-name {
@@ -701,8 +700,7 @@
             font-weight: 600;
             margin-bottom: 0.3rem;
             line-height: 1.3;
-            margin-top: -3rem;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .church-location {
@@ -711,7 +709,7 @@
             font-style: italic;
             color: var(--text-taupe);
             letter-spacing: 1px;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         /* --- MAP BUTTON STYLE --- */
@@ -729,7 +727,6 @@
             border-radius: 20px;
             text-decoration: none;
             transition: all 0.3s ease;
-            backdrop-filter: blur(2px);
         }
 
         .map-btn:hover {
@@ -737,11 +734,11 @@
             color: #fff;
         }
 
-        /* --- ZAGS BLOCK (RAISED UP) --- */
+        /* --- ZAGS BLOCK --- */
         .zags-section {
             width: 100%;
             max-width: 400px;
-            margin: -1rem auto 0; 
+            margin: 1rem auto 0; 
             text-align: center;
             background: transparent;
             padding: 1.5rem;
@@ -755,8 +752,7 @@
             opacity: 0.95;
             position: relative;
             z-index: 1;
-            margin-top: 0; 
-            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+            filter: drop-shadow(0 2px 5px rgba(255,255,255,0.8));
         }
 
         .zags-name {
@@ -766,8 +762,7 @@
             font-weight: 600;
             margin-bottom: 0.3rem;
             line-height: 1.3;
-            margin-top: -0.5rem;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .zags-location {
@@ -776,7 +771,7 @@
             font-style: italic;
             color: var(--text-taupe);
             letter-spacing: 1px;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         /* --- BANQUET HALL BLOCK --- */
@@ -797,8 +792,7 @@
             opacity: 0.95;
             position: relative;
             z-index: 1;
-            margin-top: 0; 
-            filter: drop-shadow(0 2px 8px rgba(255, 255, 255, 0.9));
+            filter: drop-shadow(0 2px 5px rgba(255,255,255,0.8));
         }
 
         .banquet-name {
@@ -808,8 +802,7 @@
             font-weight: 600;
             margin-bottom: 0.3rem;
             line-height: 1.3;
-            margin-top: 0;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .banquet-location {
@@ -818,7 +811,7 @@
             font-style: italic;
             color: var(--text-taupe);
             letter-spacing: 1px;
-            text-shadow: 0 1px 6px rgba(255, 255, 255, 0.9);
+            text-shadow: 0 1px 5px rgba(255, 255, 255, 0.8);
         }
 
         /* --- RSVP FORM STYLES --- */
@@ -830,8 +823,8 @@
             padding: 2rem 1.5rem;
             border: 1px solid rgba(109, 76, 65, 0.2);
             border-radius: 12px;
-            background: rgba(255, 255, 255, 0.6);
-            backdrop-filter: blur(4px);
+            background: rgba(255, 255, 255, 0.6); /* Semi-transparent white for form readability */
+            backdrop-filter: blur(2px);
         }
 
         .rsvp-title {
@@ -978,7 +971,7 @@
             color: var(--text-chocolate);
             font-style: italic;
             line-height: 1.4;
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         /* --- DECORATIVE LINE BEFORE L'INVITATION --- */
@@ -1015,7 +1008,7 @@
             opacity: 0;
             transform: translateY(20px);
             transition: opacity 2s ease, transform 2s cubic-bezier(0.22, 1, 0.36, 1);
-            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
+            text-shadow: 0 2px 10px rgba(255, 255, 255, 0.8);
         }
 
         .linvitation-text.revealed {
@@ -1038,24 +1031,22 @@
         }
 
         @media (max-width: 480px) {
-            body { padding-top: 0; }
-            .names { font-size: 2rem; margin-top: 8vh; }
-            .divider-container { width: 95%; }
-            .date-value { font-size: 1.8rem; }
+            .names { font-size: 2.2rem; margin-top: 0; }
+            .first-page-block { padding: 12vh 20px 40px; } /* Adjusted for mobile */
+            .date-value { font-size: 2rem; }
             .vertical-line { height: 45px; }
-            .wave-heart-decoration { max-width: 150px; margin-top: 0.5rem; margin-bottom: 0.2rem; }
+            .wave-heart-decoration { max-width: 150px; }
             .message-title { font-size: 1.5rem; }
             .signature-names { font-size: 1.8rem; }
             
             .heart-shape, .heart-shape::before, .heart-shape::after { width: 24px; height: 24px; }
             .heart-shape::before { top: -12px; }
             .heart-shape::after { left: -12px; }
-            .timeline-wrapper { margin-top: 0; padding-top: 0; }
             
-            .sched-1 { left: calc(50% + 5px); top: 6%; }
-            .sched-2 { left: calc(50% - 135px); top: 22%; } /* ✅ MOVED MORE LEFT */
-            .sched-3 { left: calc(50% + 5px); top: 40%; }
-            .sched-4 { left: calc(50% - 135px); top: 59%; } /* ✅ MOVED MORE LEFT */
+            .sched-1 { left: calc(50% + 5px); top: 3%; }
+            .sched-2 { left: calc(50% - 135px); top: 20%; }
+            .sched-3 { left: calc(50% + 5px); top: 38%; }
+            .sched-4 { left: calc(50% - 135px); top: 56%; }
             
             .church-sketch-svg { width: 200px; }
             .zags-sketch-svg, .banquet-sketch-svg { width: 80px; }
@@ -1068,14 +1059,10 @@
             .rsvp-title { font-size: 1.8rem; }
             .closing-text { font-size: 1.6rem; }
             
-            .collage-left { width: 110px; height: 180px; } /* ✅ ENLARGED FOR MOBILE */
-            .collage-center { width: 120px; height: 210px; } /* ✅ ENLARGED FOR MOBILE */
-            .collage-right { width: 110px; height: 180px; } /* ✅ ENLARGED FOR MOBILE */
-            .collage-section { height: 220px; gap: 8px; max-width: 400px; } /* ✅ ENLARGED FOR MOBILE */
-            
-            .first-page-block {
-                padding: 40px 15px 20px;
-            }
+            .collage-left { width: 110px; height: 180px; }
+            .collage-center { width: 120px; height: 210px; }
+            .collage-right { width: 110px; height: 180px; }
+            .collage-section { height: 220px; gap: 8px; max-width: 400px; }
         }
     </style>
 </head>
@@ -1087,10 +1074,11 @@
     </audio>
 
     <!-- ============================================
-         VIDEO INTRO OVERLAY
+         VIDEO COVER OVERLAY
          ============================================ -->
-    <div class="video-intro-overlay" id="videoOverlay">
+    <div class="video-cover-overlay" id="videoOverlay">
         <div class="video-container-full" id="videoContainer">
+            <!-- Video is muted initially to allow loading, unmuted on click -->
             <video id="introVideo" playsinline muted preload="auto">
                 <source src="https://cdn.shopify.com/videos/c/o/v/8ce6a7a2e9254dbabe3e8ab40c6b702c.mp4" type="video/mp4">
             </video>
@@ -1103,7 +1091,7 @@
          ============================================ -->
     <section class="hero-section" id="heroSection">
         
-        <!-- ✅ WRAPPER FOR NAMES/DATE WITH PEARL SILK BG -->
+        <!-- ✅ WRAPPER FOR NAMES/DATE (PEARL SILK BG) -->
         <div class="first-page-block">
             <h1 class="names" id="coupleNames">Aharon & Lusine</h1>
             
@@ -1128,7 +1116,7 @@
             </div>
         </div>
 
-        <!-- ✅ REST OF THE CONTENT IS ON NEW BACKGROUND -->
+        <!-- ✅ REST OF THE CONTENT (SOFT AS SILK BG) -->
         <div class="content-container">
             
             <div class="wave-heart-decoration">
@@ -1215,10 +1203,9 @@
                 </div>
             </div>
 
-            <!-- ✅ TIMELINE (CONNECTED TO HEART) -->
+            <!-- ✅ TIMELINE -->
             <div class="timeline-wrapper scroll-reveal" id="timelineWrapper">
                 <svg class="timeline-svg" viewBox="0 0 200 550" preserveAspectRatio="none">
-                    <!-- ✅ PATH STARTS FROM TOP CENTER (CONNECTED TO HEART) -->
                     <path d="M100,0 
                              C80,30 10,60 100,120 
                              C190,180 10,240 100,300 
@@ -1244,7 +1231,7 @@
                 </div>
             </div>
 
-            <!-- ✅ LOCATIONS BLOCK (RAISED UP) -->
+            <!-- ✅ LOCATIONS BLOCK -->
             <div class="locations-section scroll-reveal" id="locationsSection">
                 <div class="locations-title">Locations</div>
                 
@@ -1260,11 +1247,10 @@
                 
                 <div class="church-name">Սուրբ Ամենափրկիչ եկեղեցի</div>
                 <div class="church-location">Նոր Հաճն</div>
-                <!-- ✅ MAP BUTTON -->
                 <a href="https://www.google.com/maps/search/?api=1&query=Surp+Amenaprkich+Church+Nor+Hachn" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
             </div>
 
-            <!-- ✅ ZAGS BLOCK (RAISED) -->
+            <!-- ✅ ZAGS BLOCK -->
             <div class="zags-section scroll-reveal">
                 <img src="https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download-_25.svg?v=1794686862" 
                      alt="Zags Ceremony Rings Sketch" 
@@ -1272,7 +1258,6 @@
                 
                 <div class="zags-name">Զագսի արարողություն</div>
                 <div class="zags-location">Ginats Hall բակում</div>
-                <!-- ✅ MAP BUTTON -->
                 <a href="https://www.google.com/maps/search/?api=1&query=Ginats+Hall" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
             </div>
 
@@ -1284,7 +1269,6 @@
                 
                 <div class="banquet-name">Հարսանյաց սրահ</div>
                 <div class="banquet-location">Ginats Hall</div>
-                <!-- ✅ MAP BUTTON -->
                 <a href="https://www.google.com/maps/search/?api=1&query=Ginats+Hall" target="_blank" class="map-btn">Տեսնել քարտեզում</a>
             </div>
 
@@ -1401,20 +1385,20 @@
 
             if (!hasStarted) {
                 hasStarted = true;
-                introVideo.muted = false;
+                introVideo.muted = false; // Unmute on click
                 
                 Promise.all([
                     introVideo.play(),
                     bgMusic.play()
                 ]).then(() => {
-                    tapHint.classList.add('visible');
+                    tapHint.classList.remove('visible'); // Hide hint when playing
                 }).catch(function(err) {
                     console.log("Autoplay prevented:", err);
                     introVideo.muted = false;
                     introVideo.play();
-                    tapHint.classList.add('visible');
                 });
             } else {
+                // If already playing, tap again to open invitation
                 openInvitation();
             }
         });
@@ -1431,6 +1415,11 @@
         introVideo.addEventListener('ended', function() {
             openInvitation();
         });
+
+        // Show hint after a short delay
+        setTimeout(() => {
+            if(!isOpened) tapHint.classList.add('visible');
+        }, 1000);
 
         // ============================================
         // SCROLL REVEAL
