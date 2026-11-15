@@ -25,7 +25,7 @@
         * { box-sizing: border-box; margin: 0; padding: 0; }
         
         body {
-            background-color: #000; /* Black background for video cover */
+            background-color: #000; 
             color: var(--text-chocolate);
             font-family: var(--font-serif);
             display: flex;
@@ -36,71 +36,35 @@
         }
 
         /* ============================================
-           VIDEO COVER OVERLAY
+           IMAGE COVER OVERLAY (REPLACED VIDEO)
            ============================================ */
-        .video-cover-overlay {
+        .image-cover-overlay {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: #000;
             z-index: 9999;
             display: flex;
             align-items: center;
             justify-content: center;
             transition: opacity 1.5s ease, visibility 1.5s ease;
+            /* ✅ YOUR IMAGE AS BACKGROUND */
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/photo_2026-11-15_16-17-27.jpg?v=1794745178');
+            background-size: cover;
+            background-position: center;
+            background-repeat: no-repeat;
         }
 
-        .video-cover-overlay.hidden {
+        .image-cover-overlay.hidden {
             opacity: 0;
             visibility: hidden;
             pointer-events: none;
         }
 
-        .video-container-full {
-            width: 100%;
-            height: 100%;
-            position: relative;
-            cursor: pointer;
-            background: #000;
-        }
-
-        .video-container-full video {
-            width: 100vw;
-            height: 100vh;
-            object-fit: cover;
-            position: absolute;
-            top: 0;
-            left: 0;
-        }
-
-        /* Hint to tap */
+        /* No text on the cover image as requested */
         .tap-hint {
-            position: absolute;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.8);
-            text-shadow: 0 1px 4px rgba(0,0,0,0.6);
-            font-family: var(--font-serif);
-            font-size: 0.7rem;
-            letter-spacing: 2px;
-            text-transform: uppercase;
-            animation: pulse 3s infinite;
-            cursor: pointer;
-            z-index: 10;
-            opacity: 0;
-            transition: opacity 1s ease;
-        }
-
-        .tap-hint.visible {
-            opacity: 1;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 0.8; }
+            display: none;
         }
 
         /* ============================================
@@ -1027,13 +991,11 @@
            MOBILE RESPONSIVE ADJUSTMENTS
            ============================================ */
         @media (max-width: 480px) {
-            /* Move Names higher on mobile */
             .names { 
                 font-size: 2.2rem; 
                 margin-top: 0; 
             }
             
-            /* Adjust first block padding for mobile */
             .first-page-block { 
                 padding: 12vh 15px 30px; 
             }
@@ -1045,18 +1007,15 @@
             .message-title { font-size: 1.5rem; }
             .signature-names { font-size: 1.8rem; }
             
-            /* Adjust Heart Shape size for mobile calendar */
             .heart-shape, .heart-shape::before, .heart-shape::after { width: 24px; height: 24px; }
             .heart-shape::before { top: -12px; }
             .heart-shape::after { left: -12px; }
             
-            /* ✅ ADJUST TIMELINE POSITION FOR MOBILE TO CONNECT TO HEART */
             .timeline-svg {
-                top: -20px; /* Fine-tuned for mobile heart position */
+                top: -20px;
                 width: 180px;
             }
             
-            /* Adjust Schedule Items for narrower screen */
             .sched-1 { left: calc(50% + 5px); top: 3%; }
             .sched-2 { left: calc(50% - 135px); top: 20%; }
             .sched-3 { left: calc(50% + 5px); top: 38%; }
@@ -1073,7 +1032,6 @@
             .rsvp-title { font-size: 1.8rem; }
             .closing-text { font-size: 1.6rem; }
             
-            /* Adjust Collage for mobile */
             .collage-left { width: 110px; height: 180px; }
             .collage-center { width: 120px; height: 210px; }
             .collage-right { width: 110px; height: 180px; }
@@ -1089,15 +1047,10 @@
     </audio>
 
     <!-- ============================================
-         VIDEO COVER OVERLAY
+         IMAGE COVER OVERLAY (NO VIDEO, NO TEXT)
          ============================================ -->
-    <div class="video-cover-overlay" id="videoOverlay">
-        <div class="video-container-full" id="videoContainer">
-            <video id="introVideo" playsinline muted preload="auto">
-                <source src="https://cdn.shopify.com/videos/c/o/v/8ce6a7a2e9254dbabe3e8ab40c6b702c.mp4" type="video/mp4">
-            </video>
-            <div class="tap-hint" id="tapHint">Tap to Open</div>
-        </div>
+    <div class="image-cover-overlay" id="imageOverlay">
+        <!-- No content inside, just the background image from CSS -->
     </div>
 
     <!-- ============================================
@@ -1356,26 +1309,24 @@
 
     <!-- ✅ ALL JAVASCRIPT -->
     <script>
-        const videoOverlay = document.getElementById('videoOverlay');
-        const introVideo = document.getElementById('introVideo');
+        const imageOverlay = document.getElementById('imageOverlay');
         const bgMusic = document.getElementById('bgMusic');
         const heroSection = document.getElementById('heroSection');
-        const tapHint = document.getElementById('tapHint');
-        const videoContainer = document.getElementById('videoContainer');
         const coupleNames = document.getElementById('coupleNames');
         const dateSection = document.getElementById('dateSection');
         
         let isOpened = false;
-        let hasStarted = false;
-        const SKIP_LAST_SECONDS = 4;
 
         function openInvitation() {
             if (isOpened) return;
             isOpened = true;
 
-            introVideo.pause();
+            // Play music when invitation opens
+            bgMusic.play().catch(function(err) {
+                console.log("Autoplay prevented:", err);
+            });
             
-            videoOverlay.classList.add('hidden');
+            imageOverlay.classList.add('hidden');
             heroSection.classList.add('visible');
             
             document.body.style.overflowY = 'auto';
@@ -1389,49 +1340,14 @@
             }, 1800);
 
             setTimeout(function() {
-                videoOverlay.style.display = 'none';
+                imageOverlay.style.display = 'none';
             }, 1200);
         }
 
-        // ✅ WHEN USER TAPS THE VIDEO CONTAINER, START VIDEO
-        videoContainer.addEventListener('click', function(e) {
-            if (isOpened) return;
-
-            if (!hasStarted) {
-                hasStarted = true;
-                introVideo.muted = false; 
-                
-                Promise.all([
-                    introVideo.play(),
-                    bgMusic.play()
-                ]).then(() => {
-                    tapHint.classList.remove('visible');
-                }).catch(function(err) {
-                    console.log("Autoplay prevented:", err);
-                    introVideo.muted = false;
-                    introVideo.play();
-                });
-            } else {
-                openInvitation();
-            }
-        });
-
-        introVideo.addEventListener('timeupdate', function() {
-            if (isOpened) return;
-            const duration = introVideo.duration;
-            const currentTime = introVideo.currentTime;
-            if (duration && (duration - currentTime) <= SKIP_LAST_SECONDS) {
-                openInvitation();
-            }
-        });
-
-        introVideo.addEventListener('ended', function() {
+        // ✅ CLICK ANYWHERE TO OPEN INVITATION
+        document.addEventListener('click', function() {
             openInvitation();
         });
-
-        setTimeout(() => {
-            if(!isOpened) tapHint.classList.add('visible');
-        }, 1000);
 
         // ============================================
         // SCROLL REVEAL
