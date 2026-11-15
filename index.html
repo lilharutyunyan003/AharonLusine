@@ -273,9 +273,9 @@
             text-shadow: 0 2px 10px rgba(255, 255, 255, 0.9), 0 0 20px rgba(255, 255, 255, 0.5);
         }
 
-        /* --- REST OF THE CONTENT (ON SOFT SILK BG) --- */
+        /* --- REST OF THE CONTENT (ON NEW BACKGROUND) --- */
         
-        /* Container for content on Soft Silk BG */
+        /* Container for content on NEW BACKGROUND */
         .content-container {
             width: 100%;
             max-width: 500px;
@@ -283,8 +283,8 @@
             display: flex;
             flex-direction: column;
             align-items: center;
-            /* ✅ SOFT SILK BACKGROUND STARTS HERE AND COVERS FULL SCREEN */
-            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/Soft_as_silk_1.jpg?v=1794726578');
+            /* ✅ NEW BACKGROUND STARTS HERE AND COVERS FULL SCREEN */
+            background-image: url('https://cdn.shopify.com/s/files/1/0771/6290/5791/files/download_29.jpg?v=1794728339');
             background-size: cover;
             background-position: center;
             background-repeat: no-repeat;
@@ -423,16 +423,16 @@
             opacity: 0.6;
         }
 
-        /* --- COLLAGE BLOCK --- */
+        /* --- COLLAGE BLOCK (ENLARGED) --- */
         .collage-section {
             width: 100%;
-            max-width: 400px;
-            margin: 2rem auto 3rem;
+            max-width: 450px; /* ✅ INCREASED WIDTH */
+            margin: 1.5rem auto 2rem; /* ✅ REDUCED MARGINS */
             display: flex;
             justify-content: center;
             align-items: flex-end;
-            gap: 12px;
-            height: 200px;
+            gap: 10px; /* ✅ REDUCED GAP */
+            height: 240px; /* ✅ INCREASED HEIGHT */
         }
 
         .collage-img-wrapper {
@@ -457,9 +457,9 @@
             display: block;
         }
 
-        .collage-left { width: 110px; height: 180px; transform: translateY(30px); }
-        .collage-center { width: 120px; height: 200px; transform: translateY(30px); z-index: 2; }
-        .collage-right { width: 110px; height: 180px; transform: translateY(30px); }
+        .collage-left { width: 130px; height: 210px; transform: translateY(30px); } /* ✅ ENLARGED */
+        .collage-center { width: 140px; height: 240px; transform: translateY(30px); z-index: 2; } /* ✅ ENLARGED */
+        .collage-right { width: 130px; height: 210px; transform: translateY(30px); } /* ✅ ENLARGED */
 
         /* --- CALENDAR SECTION --- */
         .calendar-header {
@@ -467,9 +467,9 @@
             margin-bottom: 0;
             width: 100%;
             max-width: 400px;
-            margin: 2rem auto 0;
+            margin: 1.5rem auto 0; /* ✅ REDUCED MARGIN */
             background: transparent;
-            padding: 1.5rem 0;
+            padding: 1rem 0; /* ✅ REDUCED PADDING */
         }
 
         .month-year {
@@ -609,10 +609,11 @@
             transform: translateX(0) !important;
         }
 
-        .sched-1 { left: calc(50% + 10px); top: 10%; text-align: left; transform: translateX(30px); }
-        .sched-2 { left: calc(50% - 130px); top: 26%; text-align: left; transform: translateX(-30px); }
-        .sched-3 { left: calc(50% + 10px); top: 44%; text-align: left; transform: translateX(30px); }
-        .sched-4 { left: calc(50% - 130px); top: 63%; text-align: left; transform: translateX(-30px); }
+        /* ✅ RAISED SCHEDULE ITEMS WITH ADJUSTED LEFT POSITION FOR LEFT-SIDE ITEMS */
+        .sched-1 { left: calc(50% + 10px); top: 8%; text-align: left; transform: translateX(30px); }
+        .sched-2 { left: calc(50% - 145px); top: 24%; text-align: left; transform: translateX(-30px); } /* ✅ MOVED MORE LEFT */
+        .sched-3 { left: calc(50% + 10px); top: 42%; text-align: left; transform: translateX(30px); }
+        .sched-4 { left: calc(50% - 145px); top: 61%; text-align: left; transform: translateX(-30px); } /* ✅ MOVED MORE LEFT */
 
         .schedule-time {
             font-family: var(--font-script);
@@ -631,11 +632,11 @@
             font-weight: 600;
         }
 
-        /* --- LOCATIONS BLOCK --- */
+        /* --- LOCATIONS BLOCK (RAISED UP - IMMEDIATELY UNDER S-SHAPE LINE) --- */
         .locations-section {
             width: 100%;
             max-width: 400px;
-            margin: 2rem auto 0;
+            margin: -2rem auto 0; /* ✅ RAISED SIGNIFICANTLY */
             text-align: center;
             opacity: 0;
             transform: translateX(-60px);
@@ -1052,10 +1053,10 @@
             .heart-shape::after { left: -12px; }
             .timeline-wrapper { margin-top: 0; padding-top: 0; }
             
-            .sched-1 { left: calc(50% + 5px); }
-            .sched-2 { left: calc(50% - 120px); }
-            .sched-3 { left: calc(50% + 5px); }
-            .sched-4 { left: calc(50% - 120px); }
+            .sched-1 { left: calc(50% + 5px); top: 6%; }
+            .sched-2 { left: calc(50% - 135px); top: 22%; } /* ✅ MOVED MORE LEFT */
+            .sched-3 { left: calc(50% + 5px); top: 40%; }
+            .sched-4 { left: calc(50% - 135px); top: 59%; } /* ✅ MOVED MORE LEFT */
             
             .church-sketch-svg { width: 200px; }
             .zags-sketch-svg, .banquet-sketch-svg { width: 80px; }
@@ -1068,10 +1069,10 @@
             .rsvp-title { font-size: 1.8rem; }
             .closing-text { font-size: 1.6rem; }
             
-            .collage-left { width: 90px; height: 150px; }
-            .collage-center { width: 100px; height: 170px; }
-            .collage-right { width: 90px; height: 150px; }
-            .collage-section { height: 180px; gap: 8px; }
+            .collage-left { width: 110px; height: 180px; } /* ✅ ENLARGED FOR MOBILE */
+            .collage-center { width: 120px; height: 210px; } /* ✅ ENLARGED FOR MOBILE */
+            .collage-right { width: 110px; height: 180px; } /* ✅ ENLARGED FOR MOBILE */
+            .collage-section { height: 220px; gap: 8px; max-width: 400px; } /* ✅ ENLARGED FOR MOBILE */
             
             .first-page-block {
                 padding: 40px 15px 20px;
@@ -1128,7 +1129,7 @@
             </div>
         </div>
 
-        <!-- ✅ REST OF THE CONTENT IS ON SOFT SILK BG -->
+        <!-- ✅ REST OF THE CONTENT IS ON NEW BACKGROUND -->
         <div class="content-container">
             
             <div class="wave-heart-decoration">
@@ -1244,7 +1245,7 @@
                 </div>
             </div>
 
-            <!-- ✅ LOCATIONS BLOCK -->
+            <!-- ✅ LOCATIONS BLOCK (RAISED UP) -->
             <div class="locations-section scroll-reveal" id="locationsSection">
                 <div class="locations-title">Locations</div>
                 
